@@ -19,15 +19,17 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // Email Validation
-        if (!email.includes('@') || !email.includes('.')) {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
             isValid = false;
-            messages.push("Email must contain '@' and '.' characters.");
+            messages.push("Please enter a valid email address.");
         }
 
         // Password Validation
-        if (password.length < 8) {
+        const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        if (!passwordPattern.test(password)) {
             isValid = false;
-            messages.push("Password must be at least 8 characters long.");
+            messages.push("Password must be at least 8 characters and contain letters and numbers.");
         }
 
         feedbackDiv.style.display = "block";
@@ -35,11 +37,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (isValid) {
             feedbackDiv.textContent = "Registration successful!";
             feedbackDiv.style.color = "#28a745";
-            feedbackDiv.style.backgroundColor = "#d4edda";
         } else {
             feedbackDiv.innerHTML = messages.join("<br>");
-            feedbackDiv.style.color = "#d8000c";
-            feedbackDiv.style.backgroundColor = "#ffbaba";
+            feedbackDiv.style.color = "#dc3545";
         }
     });
 });
